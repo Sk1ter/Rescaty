@@ -1,0 +1,5 @@
+package pe.edu.certus.rescatybackend.service.impl;
+
+public class MascotaServiceImpl {
+
+}

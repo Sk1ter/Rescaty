@@ -1,0 +1,69 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pe.edu.certus.rescatybackend.dto.SolicitudAdopcionRequest;
+import pe.edu.certus.rescatybackend.model.SolicitudAdopcion;
+import pe.edu.certus.rescatybackend.service.SolicitudAdopcionService;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/adopciones")
+@CrossOrigin("*")
+public class SolicitudAdopcionController {
+
+    private final SolicitudAdopcionService service;
+
+    public SolicitudAdopcionController(SolicitudAdopcionService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public SolicitudAdopcion crear(@RequestBody SolicitudAdopcionRequest req) {
+        return service.registrar(req);
+    }
+
+    @GetMapping
+    public List<SolicitudAdopcion> listar() {
+        return service.listar();
+    }
+
+    @GetMapping("/{id}")
+    public SolicitudAdopcion obtener(@PathVariable Long id) {
+        return service.obtener(id);
+    }
+
+    @GetMapping("/usuario/{userId}")
+    public List<SolicitudAdopcion> listarPorUsuario(@PathVariable Long userId) {
+        return service.listarPorUsuario(userId);
+    }
+
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<?> actualizarEstado(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body) {
+
+        String nuevoEstado = body.get("estado");
+
+        if (nuevoEstado == null || nuevoEstado.isEmpty()) {
+            return ResponseEntity.badRequest().body("El estado es obligatorio");
+        }
+
+        SolicitudAdopcionService.actualizarEstado(id, nuevoEstado);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "mensaje", "Estado actualizado correctamente",
+                        "estado", nuevoEstado
+                )
+        );
+    }
+
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
+    }
+}

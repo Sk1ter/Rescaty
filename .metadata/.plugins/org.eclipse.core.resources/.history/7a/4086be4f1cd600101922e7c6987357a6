@@ -1,0 +1,64 @@
+package pe.edu.certus.rescatybackend.service;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import pe.edu.certus.rescatybackend.dto.SolicitudAdopcionRequest;
+import pe.edu.certus.rescatybackend.model.SolicitudAdopcion;
+import pe.edu.certus.rescatybackend.repository.SolicitudAdopcionRepository;
+
+@Service
+public class SolicitudAdopcionService {
+
+    private final SolicitudAdopcionRepository repo;
+
+    public SolicitudAdopcionService(SolicitudAdopcionRepository repo) {
+        this.repo = repo;
+    }
+
+    public SolicitudAdopcion registrar(SolicitudAdopcionRequest req) {
+
+        SolicitudAdopcion s = new SolicitudAdopcion(
+                req.mascotaId,
+                req.usuarioId,
+                req.telefono,
+                req.descripcion
+        );
+
+        return repo.save(s);
+    }
+
+    public List<SolicitudAdopcion> listar() {
+        return repo.findAll();
+    }
+
+    public SolicitudAdopcion obtener(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public List<SolicitudAdopcion> listarPorUsuario(Long usuarioId) {
+        return repo.findByUsuarioId(usuarioId);
+    }
+    
+    public SolicitudAdopcion actualizarEstado(Long id, String nuevoEstado) {
+
+        SolicitudAdopcion s = repo.findById(id).orElse(null);
+
+        if (s == null) {
+            return null;
+        }
+
+        s.setEstado(nuevoEstado);
+        return repo.save(s);
+    }
+
+    public void eliminar(Long id) {
+        repo.deleteById(id);
+    }
+
+}

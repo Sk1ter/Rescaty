@@ -1,0 +1,79 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import pe.edu.certus.rescatybackend.model.Usuario;
+import pe.edu.certus.rescatybackend.repository.UsuarioRepository;
+import pe.edu.certus.rescatybackend.security.JwtUtil;
+import pe.edu.certus.rescatybackend.security.LoginResponse;
+import pe.edu.certus.rescatybackend.service.UsuarioService;
+
+
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin("*")
+public class AuthController {
+
+    private final UsuarioService usuarioService;
+    private final UsuarioRepository usuarioRepository;
+    private final JwtUtil jwtUtil;
+
+    public AuthController(UsuarioService usuarioService,
+                          UsuarioRepository usuarioRepository,
+                          JwtUtil jwtUtil) {
+        this.usuarioService = usuarioService;
+        this.usuarioRepository = usuarioRepository;
+        this.jwtUtil = jwtUtil;
+    }
+
+    
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Usuario nuevoUsuario) {
+
+        if (usuarioRepository.findByEmail(nuevoUsuario.getEmail()) != null) {
+            return ResponseEntity.badRequest().body("El email ya está registrado");
+        }
+
+        Usuario registrado = usuarioService.registrar(nuevoUsuario);
+
+        return ResponseEntity.ok(registrado);
+    }
+
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Usuario datosLogin) {
+
+        Usuario usuario = usuarioService.login(datosLogin.getEmail(), datosLogin.getPassword());
+
+        if (usuario == null) {
+            return ResponseEntity.status(401).body("Credenciales incorrectas");
+        }
+        String token = jwtUtil.generateToken(usuario.getEmail());
+        LoginResponse response = new LoginResponse(
+                token,
+                usuario.getNombres(),
+                usuario.getApellido(),
+                usuario.getEmail(),
+                usuario.getDni()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+
+    
+    @GetMapping("/me")
+    public ResponseEntity<?> me(@RequestHeader("Authorization") String authHeader) {
+
+        String token = authHeader.replace("Bearer ", "");
+        String email = jwtUtil.getEmailFromToken(token);
+
+        Usuario usuario = usuarioRepository.findByEmail(email);
+
+        if (usuario == null) {
+            return ResponseEntity.status(404).body("Usuario no encontrado");
+        }
+
+        return ResponseEntity.ok(usuario);
+    }
+}

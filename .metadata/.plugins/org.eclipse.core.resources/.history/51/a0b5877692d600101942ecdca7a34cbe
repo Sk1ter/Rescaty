@@ -1,0 +1,23 @@
+package pe.edu.certus.rescatybackend.dto;
+
+public class SolicitudAdopcionRequest {
+
+    public Long mascotaId;
+    public Long usuarioId;
+
+    public String nombreCompleto;
+    public String email;
+    public String telefono;
+    public String direccion;
+    public String ciudad;
+
+    public String motivo;
+    public String experiencia;
+    public String entornoHogar;
+    public String tiempoDisponible;
+    public String otrasMascotas;
+    public Boolean aceptaCondiciones;
+
+    public SolicitudAdopcionRequest() {
+    }
+}

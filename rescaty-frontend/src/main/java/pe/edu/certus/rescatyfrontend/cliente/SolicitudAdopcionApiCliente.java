@@ -1,0 +1,97 @@
+package pe.edu.certus.rescatyfrontend.cliente;
+
+import jakarta.servlet.http.HttpSession;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
+
+import pe.edu.certus.rescatyfrontend.dto.UsuarioSesion;
+import pe.edu.certus.rescatyfrontend.modelo.SolicitudAdopcion;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+@Component
+public class SolicitudAdopcionApiCliente {
+
+    private static final String BASE_URL = "http://localhost:8080/api/adopciones";
+    private final RestClient restClient;
+    
+
+    public SolicitudAdopcionApiCliente(HttpSession session) {
+
+        this.restClient = RestClient.builder()
+                .requestInterceptor((request, body, execution) -> {
+
+                    UsuarioSesion user = (UsuarioSesion) session.getAttribute("usuarioSesion");
+
+                    if (request.getURI().getPath().equals("/api/adopciones")
+                            && user != null && user.getToken() != null) {
+
+                        request.getHeaders()
+                                .add("Authorization", "Bearer " + user.getToken());
+                    }
+
+                    return execution.execute(request, body);
+                })
+                .build();
+    }
+
+
+    public SolicitudAdopcion crearSolicitud(SolicitudAdopcion solicitud) {
+        return restClient.post()
+                .uri(BASE_URL)
+                .body(solicitud)
+                .retrieve()
+                .body(SolicitudAdopcion.class);
+    }
+
+    public List<SolicitudAdopcion> listarTodas() {
+
+        SolicitudAdopcion[] lista = restClient.get()
+                .uri(BASE_URL)
+                .retrieve()
+                .body(SolicitudAdopcion[].class);
+
+        return Arrays.asList(lista);
+    }
+
+
+    public SolicitudAdopcion obtenerSolicitud(Long id) {
+        return restClient.get()
+                .uri(BASE_URL + "/" + id)
+                .retrieve()
+                .body(SolicitudAdopcion.class);
+    }
+
+
+    public List<SolicitudAdopcion> listarPorUsuario(Long userId) {
+
+        SolicitudAdopcion[] lista = restClient.get()
+                .uri(BASE_URL + "/usuario/" + userId)
+                .retrieve()
+                .body(SolicitudAdopcion[].class);
+
+        return Arrays.asList(lista);
+    }
+
+
+    public Map<String, Object> actualizarEstado(Long id, String estado) {
+
+        return restClient.put()
+                .uri(BASE_URL + "/" + id + "/estado")
+                .body(Map.of("estado", estado))
+                .retrieve()
+                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+    }
+
+    
+    public void eliminarSolicitud(Long id) {
+        restClient.delete()
+                .uri(BASE_URL + "/" + id)
+                .retrieve()
+                .toBodilessEntity();
+    }
+}

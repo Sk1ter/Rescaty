@@ -1,0 +1,23 @@
+package pe.edu.certus.rescatyfrontend.controller;
+
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class DashboardMascotaController {
+
+    @GetMapping("/mascotas")
+    public String mascotas(HttpSession session, Model model) {
+
+        var user = session.getAttribute("usuarioSesion");
+        if (user == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("user", user);
+
+        return "mascotas";
+    }
+}

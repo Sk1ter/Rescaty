@@ -1,0 +1,26 @@
+package pe.edu.certus.rescatyfrontend.controller;
+
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import pe.edu.certus.rescatyfrontend.dto.UsuarioSesion;
+
+@Controller
+public class HomeController {
+
+    @GetMapping("/home")
+    public String home(HttpSession session, Model model) {
+
+        UsuarioSesion usuario = (UsuarioSesion) session.getAttribute("usuarioSesion");
+
+        if (usuario == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("usuario", usuario);
+        return "home";
+    }
+    
+}

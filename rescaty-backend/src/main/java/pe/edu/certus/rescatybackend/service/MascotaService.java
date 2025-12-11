@@ -1,0 +1,18 @@
+package pe.edu.certus.rescatybackend.service;
+
+import pe.edu.certus.rescatybackend.model.Mascota;
+
+import java.util.List;
+
+public interface MascotaService {
+
+    List<Mascota> listar();
+
+    Mascota obtener(Long id);
+
+    Mascota crear(Mascota mascota);
+
+    Mascota actualizar(Long id, Mascota mascota);
+
+    boolean eliminar(Long id);
+}

@@ -1,0 +1,649 @@
+/* --- TOPBAR  --- */
+
+.topbar {
+    background: #0c0c0c;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    width: 100%;
+    transition: all 0.4s ease;
+    z-index: 9000;
+}
+
+.topbar.hide {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+.topbar .topbar-info {
+	color: #ffffff;
+}
+
+.topbar .topbar-info i {
+	color: #f1b902; 
+	margin-right: 5px;
+}
+
+.topbar .social-icon {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border-radius: 50%;
+    background: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.topbar .social-icon i {
+    font-size: 18px;
+    color: #f1b902;
+}
+
+.social-icon.facebook:hover {
+    background: #1877F2 !important;
+}
+.social-icon.facebook:hover i {
+    color: #ffffff !important;
+}
+
+.social-icon.twitter:hover {
+    background: #1DA1F2 !important;
+}
+.social-icon.twitter:hover i {
+    color: #ffffff !important;
+}
+
+.social-icon.instagram:hover {
+    background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4) !important;
+}
+.social-icon.instagram:hover i {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    background: none !important;
+}
+
+.topbar .social-icon:hover {
+    transform: translateY(-2px);
+}
+
+
+/* --- NAVBAR  --- */
+
+#mainNavbar {
+    position: sticky;
+    top: 40px;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(6px);
+    transition: all 0.45s ease;
+    z-index: 1000 !important;
+}
+
+#mainNavbar.at-top {
+    top: 0px !important;
+}
+
+#mainNavbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.logo {
+    height: 75px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-scrolled {
+    opacity: 0;
+    position: absolute;
+}
+
+#mainNavbar.scrolled .logo-default {
+    opacity: 0;
+}
+
+#mainNavbar.scrolled .logo-scrolled {
+    opacity: 1;
+}
+
+.navbar-nav .nav-link {
+    position: relative;
+    color: #333 !important;
+    padding-bottom: 6px;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f1b902 !important;
+}
+
+.navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: #f1b902;
+    transition: all 0.35s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+#mainNavbar.scrolled .nav-link {
+    color: #ffffff !important;
+}
+
+.navbar .btn-session {
+    padding: 10px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.btn-login {
+    border: 2px solid #f1b902;
+    color: #f1b902;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-login:hover {
+    background: #f1b902;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-register {
+    background: linear-gradient(135deg, #f1b902, #de9e23);
+    color: #fff;
+    border: none;
+}
+
+.btn-register:hover {
+    background: linear-gradient(135deg, #de9e23, #c68415);
+    transform: translateY(-2px);
+}
+
+
+/* =================== HERO SECTION =================== */
+
+.hero-slide {
+    height: 90vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hero-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.hero-slide .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: #f1b902;
+    color: #000;
+    font-size: 1rem;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+.hero-slide h1 {
+    line-height: 1.1;
+}
+
+.hero-slide p {
+    font-size: 1.1rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+
+.hero-inline {
+    width: auto;
+    display: inline-block;
+}
+
+.hero-btn {
+    width: auto;
+    display: inline-block;
+}
+
+/* ===== ABOUT WILDLIFE SECTION ===== */
+
+.about-wildlife {
+    background: #fff;
+}
+
+.main-photo {
+    width: 420px;
+    height: 430px;
+    object-fit: cover;
+    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.sub-photo {
+    width: 280px;      
+    height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+
+    position: absolute;
+    bottom: -40px;
+    left: 230px;
+    z-index: 2;
+    border: 6px solid white;
+}
+
+.about-circle {
+    position: absolute;
+    top: 20px;
+    left: 460px;
+    width: 115px;
+    height: 115px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+    z-index: 3;
+}
+
+.about-circle h3 {
+    font-size: 2rem;
+    color: #1a1a1a;
+}
+
+.about-list li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.about-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #f1b902;
+    font-size: 1.2rem;
+}
+
+.section-image-dark {
+    width: 100%;
+    height: 280px;
+    background-image: url('https://images.pexels.com/photos/128817/pexels-photo-128817.jpeg?cs=srgb&dl=pexels-brunocervera-128817.jpg&fm=jpg&_gl=1*1wzhimg*_ga*MTc2MzExMzc4Ni4xNzY0MzEyMDEx*_ga_8JE65Q40S6*czE3NjUwMzQxNjYkbzMkZzEkdDE3NjUwMzQ5MzMkajQzJGwwJGgw'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-image-dark .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* ===== SECCIÓN VOLUNTARIADO ===== */
+
+.voluntariado-section {
+    background: #fff;
+}
+
+.vol-card {
+    border-radius: 14px;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    border: 1px solid #eaeaea;
+}
+
+.vol-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.vol-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background: rgba(241, 185, 2, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.vol-icon i {
+    font-size: 36px;
+    color: #f1b902;
+}
+
+.vol-card .btn {
+    padding: 10px 28px;
+    border-radius: 10px;
+}
+
+/* =================== NEWSLETTER =================== */
+.newsletter-section {
+    background: #f1b902;
+    color: #000;
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 40px 0 0 40px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.newsletter-btn {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 0 25px;
+    border-radius: 0 40px 40px 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsletter-btn:hover {
+    background: #222;
+}
+
+
+.features-section {
+    background: #f8f8f8;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    color: #f1b902;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.features-section h5 {
+    color: #1a1a1a;
+}
+
+.features-section p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.feature-dog {
+    max-width: 500px;
+    animation: floatDog 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatDog {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+/* =================== FOOTER =================== */
+.footer-section {
+    position: relative;
+    background: #1a1a1a;
+    overflow: hidden;
+}
+
+.footer-background {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.pexels.com/photos/551628/pexels-photo-551628.jpeg?cs=srgb&dl=pexels-katlovessteve-551628.jpg&fm=jpg&_gl=1*8h3fjl*_ga*MTc2MzExMzc4Ni4xNzY0MzEyMDEx*_ga_8JE65Q40S6*czE3NjUwMzg3NTgkbzQkZzEkdDE3NjUwMzg3NTkkajU5JGwwJGgw') center/cover no-repeat;
+    opacity: 0.15;
+    z-index: 1;
+}
+
+.footer-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: #ffffffb0;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #f1b902;
+}
+
+.footer-social {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.footer-social:hover {
+    background: #f1b902;
+    color: #000;
+}
+
+.footer-divider {
+    border-color: rgba(255,255,255,0.2);
+}
+
+/* ===== MODALES DE INICIO Y REGISTRO ======*/
+
+.modal-auth-white {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 25px 25px 35px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0px 20px 45px rgba(0,0,0,0.15);
+    animation: modalFadeIn 0.35s ease;
+    position: relative;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-auth-white .modal-header {
+    border: none;
+}
+
+.modal-auth-white .modal-title {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #222;
+}
+
+.modal-auth-white .btn-close {
+    filter: brightness(0);
+    opacity: 0.6;
+    transition: 0.2s;
+}
+.modal-auth-white .btn-close:hover {
+    opacity: 1;
+}
+
+/* GOOGLE */
+.btn-google {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.25s ease;
+}
+
+.btn-google img {
+    width: 22px;
+}
+
+.btn-google:hover {
+    background: #f7f7f7;
+    border-color: #dcdcdc;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+}
+
+.facebook-btn {
+    background: #1877F2;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.25s ease;
+    border: none;
+}
+
+.facebook-btn i {
+    font-size: 1rem;
+}
+
+.facebook-btn:hover {
+    background: #0f5fcc;
+    box-shadow: 0px 6px 14px rgba(24,119,242,0.25);
+}
+
+.divider {
+    text-align: center;
+    position: relative;
+    margin: 25px 0;
+}
+
+.divider span {
+    background: #fff;
+    padding: 0 14px;
+    font-size: 0.9rem;
+    color: #777;
+    font-weight: 500;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e6e6e6;
+    z-index: -1;
+}
+
+.input-icon-white {
+    position: relative;
+}
+
+.input-icon-white i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 1rem;
+}
+
+.input-auth-white {
+    padding-left: 45px !important;
+    height: 52px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    transition: all 0.25s ease;
+    font-size: 0.95rem;
+}
+
+.input-auth-white:hover {
+    background: #f4f4f4;
+}
+
+.input-auth-white:focus {
+    background: #fff;
+    border-color: #f1b902;
+    box-shadow: 0 0 0 4px rgba(241,185,2,0.2);
+}
+
+.modal-auth-white .btn-warning {
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 13px;
+    border-radius: 12px;
+    transition: 0.3s ease;
+    border: none;
+}
+
+.modal-auth-white .btn-warning:hover {
+    background: #d9a200;
+    box-shadow: 0 10px 25px rgba(215,165,2,0.35);
+}
+
+.modal-auth-white p {
+    margin-top: 18px;
+    font-size: 0.95rem;
+}
+
+.modal-auth-white p a {
+    font-weight: 700;
+    text-decoration: none;
+    color: #f1b902;
+}
+
+.modal-auth-white p a:hover {
+    color: #d99c00;
+}

@@ -1,0 +1,51 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import org.springframework.web.bind.annotation.*;
+import pe.edu.certus.rescatybackend.dto.SolicitudAdopcionRequest;
+import pe.edu.certus.rescatybackend.model.SolicitudAdopcion;
+import pe.edu.certus.rescatybackend.service.SolicitudAdopcionService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/adopciones")
+@CrossOrigin("*")
+public class SolicitudAdopcionController {
+
+    private final SolicitudAdopcionService service;
+
+    public SolicitudAdopcionController(SolicitudAdopcionService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public SolicitudAdopcion crear(@RequestBody SolicitudAdopcionRequest req) {
+        return service.registrar(req);
+    }
+
+    @GetMapping
+    public List<SolicitudAdopcion> listar() {
+        return service.listar();
+    }
+
+    @GetMapping("/{id}")
+    public SolicitudAdopcion obtener(@PathVariable Long id) {
+        return service.obtener(id);
+    }
+
+    @GetMapping("/usuario/{userId}")
+    public List<SolicitudAdopcion> listarPorUsuario(@PathVariable Long userId) {
+        return service.listarPorUsuario(userId);
+    }
+
+    @PutMapping("/{id}/estado")
+    public SolicitudAdopcion actualizarEstado(@PathVariable Long id,
+                                              @RequestParam String estado) {
+        return service.actualizarEstado(id, estado);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
+    }
+}

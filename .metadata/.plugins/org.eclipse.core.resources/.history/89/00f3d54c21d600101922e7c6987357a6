@@ -1,0 +1,51 @@
+package pe.edu.certus.rescatybackend.dto;
+
+public class SolicitudAdopcionRequest {
+
+    public Long mascotaId;
+    public Long usuarioId;
+    public String telefono;
+    public String descripcion;
+    
+	public SolicitudAdopcionRequest(Long mascotaId, Long usuarioId, String telefono, String descripcion) {
+		super();
+		this.mascotaId = mascotaId;
+		this.usuarioId = usuarioId;
+		this.telefono = telefono;
+		this.descripcion = descripcion;
+	}
+
+	public Long getMascotaId() {
+		return mascotaId;
+	}
+
+	public void setMascotaId(Long mascotaId) {
+		this.mascotaId = mascotaId;
+	}
+
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+    
+}

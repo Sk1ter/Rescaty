@@ -1,0 +1,26 @@
+package pe.edu.certus.rescatyfrontend.cliente;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+import pe.edu.certus.rescatyfrontend.modelo.SolicitudAdopcion;
+
+@Component
+public class SolicitudAdopcionApiCliente {
+
+    private final RestTemplate restTemplate;
+    private final String baseUrl;
+
+    public SolicitudAdopcionApiCliente(
+            RestTemplate restTemplate,
+            @Value("${rescaty.api.base-url}") String baseUrl) {
+        this.restTemplate = restTemplate;
+        this.baseUrl = baseUrl + "/api/adopciones";
+    }
+
+    public SolicitudAdopcion crearSolicitud(SolicitudAdopcion solicitud) {
+        return restTemplate.postForObject(baseUrl, solicitud, SolicitudAdopcion.class);
+    }
+
+    // Si luego quieres listar o ver por id, aquí agregas más métodos
+}

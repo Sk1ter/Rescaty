@@ -1,0 +1,8 @@
+package pe.edu.certus.rescatybackend.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import pe.edu.certus.rescatybackend.model.SolicitudAdopcion;
+
+public interface SolicitudAdopcionRepository extends JpaRepository<SolicitudAdopcion, Long> {
+
+}

@@ -1,0 +1,104 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import pe.edu.certus.rescatybackend.model.Evento;
+import pe.edu.certus.rescatybackend.service.EventoService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/eventos")
+@CrossOrigin("*")
+@Tag(name = "Eventos", description = "API para la gestión de eventos en Rescaty")
+public class EventoController {
+
+    private final EventoService service;
+
+    public EventoController(EventoService service) {
+        this.service = service;
+    }
+    
+    @Operation(
+            summary = "Crear un nuevo evento",
+            description = "Registra un evento enviando un objeto Evento completo",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Evento creado correctamente"),
+                    @ApiResponse(responseCode = "400", description = "Datos inválidos")
+            }
+    )
+
+    @PostMapping
+    public ResponseEntity<?> crear(@RequestBody Evento evento) {
+        Evento e = service.crear(evento);
+        return ResponseEntity.ok(e);
+    }
+
+    @Operation(
+            summary = "Listar todos los eventos",
+            description = "Devuelve un listado de todos los eventos registrados"
+    )
+    
+    @GetMapping
+    public ResponseEntity<List<Evento>> listar() {
+        return ResponseEntity.ok(service.listarTodos());
+    }
+    
+    @Operation(
+            summary = "Obtener un evento por ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Evento encontrado"),
+                    @ApiResponse(responseCode = "404", description = "Evento no encontrado")
+            }
+    )
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtener(@PathVariable Long id) {
+        Evento e = service.obtenerPorId(id);
+        if (e == null)
+            return ResponseEntity.status(404).body("Evento no encontrado");
+        return ResponseEntity.ok(e);
+    }
+    
+    @Operation(
+            summary = "Actualizar un evento existente",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Evento actualizado"),
+                    @ApiResponse(responseCode = "404", description = "Evento no encontrado")
+            }
+    )
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Evento evento) {
+        Evento actualizado = service.actualizar(id, evento);
+        if (actualizado == null)
+            return ResponseEntity.status(404).body("Evento no encontrado");
+
+        return ResponseEntity.ok(actualizado);
+    }
+    
+    @Operation(
+            summary = "Eliminar un evento",
+            description = "Elimina un evento por su ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Evento eliminado correctamente"),
+                    @ApiResponse(responseCode = "404", description = "Evento no encontrado")
+            }
+    )
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        Evento e = service.obtenerPorId(id);
+        if (e == null)
+            return ResponseEntity.status(404).body("Evento no encontrado");
+
+        service.eliminar(id);
+        return ResponseEntity.ok("Evento eliminado correctamente");
+    }
+}

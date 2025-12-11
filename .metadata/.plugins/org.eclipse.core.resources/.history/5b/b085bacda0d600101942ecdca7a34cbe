@@ -1,0 +1,155 @@
+package pe.edu.certus.rescatybackend.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "solicitudes_adopcion")
+public class SolicitudAdopcion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long usuarioId;
+    private Long mascotaId;
+    private String nombreCompleto;
+    private String email;
+    private String telefono;
+    private String dni;
+    private String motivo;
+    private String experiencia;
+    private String espacio;
+    private String tiempoDisponible;
+
+    private Boolean aceptaCondiciones;
+
+    private String estado = "PENDIENTE"; // PENDIENTE / APROBADA / RECHAZADA
+
+	public SolicitudAdopcion(Long id, Long usuarioId, Long mascotaId, String nombreCompleto, String email,
+			String telefono, String dni, String motivo, String experiencia, String espacio, String tiempoDisponible,
+			Boolean aceptaCondiciones, String estado) {
+		super();
+		this.id = id;
+		this.usuarioId = usuarioId;
+		this.mascotaId = mascotaId;
+		this.nombreCompleto = nombreCompleto;
+		this.email = email;
+		this.telefono = telefono;
+		this.dni = dni;
+		this.motivo = motivo;
+		this.experiencia = experiencia;
+		this.espacio = espacio;
+		this.tiempoDisponible = tiempoDisponible;
+		this.aceptaCondiciones = aceptaCondiciones;
+		this.estado = estado;
+	}
+
+	public SolicitudAdopcion() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
+	public Long getMascotaId() {
+		return mascotaId;
+	}
+
+	public void setMascotaId(Long mascotaId) {
+		this.mascotaId = mascotaId;
+	}
+
+	public String getNombreCompleto() {
+		return nombreCompleto;
+	}
+
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+
+	public String getExperiencia() {
+		return experiencia;
+	}
+
+	public void setExperiencia(String experiencia) {
+		this.experiencia = experiencia;
+	}
+
+	public String getEspacio() {
+		return espacio;
+	}
+
+	public void setEspacio(String espacio) {
+		this.espacio = espacio;
+	}
+
+	public String getTiempoDisponible() {
+		return tiempoDisponible;
+	}
+
+	public void setTiempoDisponible(String tiempoDisponible) {
+		this.tiempoDisponible = tiempoDisponible;
+	}
+
+	public Boolean getAceptaCondiciones() {
+		return aceptaCondiciones;
+	}
+
+	public void setAceptaCondiciones(Boolean aceptaCondiciones) {
+		this.aceptaCondiciones = aceptaCondiciones;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+    
+}

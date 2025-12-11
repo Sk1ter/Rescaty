@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rescaty – Adopción de Mascotas</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+	<!-- TOPBAR -->
+	<div class="topbar py-2">
+		<div
+			class="container d-flex justify-content-between align-items-center">
+
+			<div class="d-flex gap-4 small">
+				<span class="topbar-info"><i
+					class="fa-solid fa-location-dot me-1"></i> Av. Primavera 257 –
+					Lima, Perú</span> <span class="topbar-info"><i
+					class="fa-regular fa-clock me-1"></i> Lun – Sab: 9:00 am – 6:00 pm</span>
+				<span class="topbar-info"><i
+					class="fa-solid fa-envelope me-1"></i> contacto@rescaty.org</span>
+			</div>
+
+			<div class="d-flex gap-3 fs-5">
+				<a href="#" class="social-icon facebook"><i
+					class="fa-brands fa-facebook"></i></a> <a href="#"
+					class="social-icon twitter"><i class="fa-brands fa-x-twitter"></i></a>
+				<a href="#" class="social-icon instagram"><i
+					class="fa-brands fa-instagram"></i></a>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-expand-lg py-3" id="mainNavbar">
+		<div class="container">
+
+			<a class="navbar-brand d-flex align-items-center gap-2" href="/">
+				<img src="/img/RescatyLogo.png" alt="logo" class="logo logo-default">
+				<img src="/img/RescatyLogoHover.png" alt="logo"
+				class="logo logo-scrolled">
+			</a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse justify-content-center"
+				id="menu">
+				<ul class="navbar-nav gap-3 fw-semibold">
+					<li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Mascotas</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Procesos</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+				</ul>
+			</div>
+
+			<div class="d-flex gap-2">
+				<a href="#" class="btn btn-session btn-login" data-bs-toggle="modal"
+					data-bs-target="#loginModal"> Iniciar Sesión </a> <a href="#"
+					class="btn btn-session btn-register" data-bs-toggle="modal"
+					data-bs-target="#registerModal"> Registrarse </a>
+
+			</div>
+
+		</div>
+	</nav>
+
+	<!-- HERO CON SLIDER -->
+	<div id="heroRescaty" class="carousel slide carousel-fade"
+		data-bs-ride="carousel">
+		<div class="carousel-inner">
+
+			<!-- SLIDE 1 -->
+			<div class="carousel-item active">
+				<div class="hero-slide"
+					style="background-image: url('/img/Slider1.png');">
+					<div
+						class="container h-100 d-flex flex-column justify-content-center">
+
+						<div class="hero-inline">
+							<span class="badge hero-badge mb-4">Rescaty — Donde renace
+								la esperanza</span>
+						</div>
+
+						<h1 class="display-3 fw-bold text-white mb-3">Adopta y Cambia
+							un Destino.</h1>
+
+						<p class="lead text-white mb-4" style="max-width: 550px;">
+							Millones de mascotas esperan una segunda oportunidad. Con tu
+							ayuda, podemos transformar su historia en una llena de amor y
+							protección.</p>
+
+						<div class="hero-btn">
+							<a href="#" class="btn btn-warning btn-lg px-4 fw-semibold">Ver
+								Mascotas</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- SLIDE 2 -->
+			<div class="carousel-item">
+				<div class="hero-slide"
+					style="background-image: url('/img/Slider2.png');">
+					<div
+						class="container h-100 d-flex flex-column justify-content-center">
+
+						<div class="hero-inline">
+							<span class="badge hero-badge mb-4">Un hogar cambia una
+								vida</span>
+						</div>
+
+						<h1 class="display-3 fw-bold text-white mb-3">Encuentra tu
+							Compañero Ideal.</h1>
+
+						<p class="lead text-white mb-4" style="max-width: 550px;">
+							Cada animal merece un hogar seguro. Juntos podemos crear finales
+							felices para quienes más lo necesitan.</p>
+
+						<div class="hero-btn">
+							<a href="#" class="btn btn-warning btn-lg px-4 fw-semibold">Adoptar
+								Ahora</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<button class="carousel-control-prev" type="button"
+			data-bs-target="#heroRescaty" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon"></span>
+		</button>
+
+		<button class="carousel-control-next" type="button"
+			data-bs-target="#heroRescaty" data-bs-slide="next">
+			<span class="carousel-control-next-icon"></span>
+		</button>
+	</div>
+
+	<!-- SECCIÓN NOSOTROS -->
+	<section class="about-wildlife py-5">
+		<div class="container">
+			<div class="row align-items-center gy-5">
+
+				<div class="col-lg-6 position-relative">
+
+					<img
+						src="https://images.pexels.com/photos/803766/pexels-photo-803766.jpeg?cs=srgb&dl=pexels-stergerz-803766.jpg&fm=jpg&_gl=1*58ph83*_ga*MTc2MzExMzc4Ni4xNzY0MzEyMDEx*_ga_8JE65Q40S6*czE3NjUwMzQxNjYkbzMkZzEkdDE3NjUwMzQyNDIkajU5JGwwJGgw"
+						class="img-fluid rounded shadow-lg main-photo"
+						alt="Animales rescatados"> <img
+						src="https://images.pexels.com/photos/2071882/pexels-photo-2071882.jpeg?cs=srgb&dl=pexels-wojciech-kumpicki-1084687-2071882.jpg&fm=jpg&_gl=1*8m0qla*_ga*MTc2MzExMzc4Ni4xNzY0MzEyMDEx*_ga_8JE65Q40S6*czE3NjUwMzQxNjYkbzMkZzEkdDE3NjUwMzQzMTYkajQ1JGwwJGgw"
+						class="img-fluid rounded shadow-lg sub-photo" alt="Rescate animal">
+
+					<div class="about-circle shadow-lg">
+						<h3 class="fw-bold m-0">50</h3>
+						<span>Mascotas<br>Rescatadas
+						</span>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+
+					<span class="text-warning fw-semibold small">Acerca de
+						Rescaty</span>
+
+					<h2 class="fw-bold display-6 mt-2 mb-3">Rescatamos, Sanamos y
+						Regalamos un Nuevo Comienzo.</h2>
+
+					<p class="text-muted mb-4">Rescaty es una organización dedicada
+						a salvar animales en situación vulnerable. Nuestro compromiso es
+						brindarles salud, protección y una oportunidad real de encontrar
+						un hogar lleno de cariño.</p>
+
+					<div class="row">
+						<div class="col-md-6">
+							<ul class="list-unstyled about-list">
+								<li>Rescates de emergencia</li>
+								<li>Albergue temporal seguro</li>
+								<li>Atención veterinaria</li>
+							</ul>
+						</div>
+
+						<div class="col-md-6">
+							<ul class="list-unstyled about-list">
+								<li>Procesos de adopción responsables</li>
+								<li>Programas de voluntariado</li>
+								<li>Educación sobre bienestar animal</li>
+							</ul>
+						</div>
+					</div>
+
+					<a href="#" class="btn btn-warning btn-lg px-4 fw-semibold mt-4">Conoce
+						Más</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- SECCIÓN IMAGEN OSCURA -->
+	<section class="section-image-dark mb-5 mt-5">
+		<div class="image-overlay"></div>
+	</section>
+
+	<!-- SECCIÓN VOLUNTARIADO -->
+	<section class="voluntariado-section py-5">
+		<div class="container">
+
+			<div class="text-center mb-5">
+				<span class="text-warning fw-semibold">Sé parte del cambio</span>
+				<h2 class="fw-bold display-6 mt-2 mb-3">Involúcrate con Rescaty</h2>
+				<p class="text-muted" style="max-width: 650px; margin: 0 auto;">
+					Tu apoyo permite que más animales reciban atención, alimento,
+					refugio y una posibilidad real de encontrar una familia amorosa.</p>
+			</div>
+
+			<div class="row g-4">
+
+				<div class="col-md-4">
+					<div class="vol-card text-center p-4 shadow-sm">
+						<div class="vol-icon mb-4">
+							<i class="fa-solid fa-handshake-angle"></i>
+						</div>
+						<h4 class="fw-bold mb-3">Voluntariado</h4>
+						<p class="text-muted">Únete a nuestros programas y ayuda
+							directamente en rescates, cuidados y actividades de adopción.</p>
+						<a href="#" class="btn btn-warning fw-semibold mt-3">Quiero
+							ayudar</a>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="vol-card text-center p-4 shadow-sm">
+						<div class="vol-icon mb-4">
+							<i class="fa-solid fa-heart"></i>
+						</div>
+						<h4 class="fw-bold mb-3">Donaciones</h4>
+						<p class="text-muted">Cada donación contribuye a cirugías,
+							medicinas, vacunas, refugio y recuperación de animales.</p>
+						<a href="#" class="btn btn-warning fw-semibold mt-3">Donar
+							ahora</a>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="vol-card text-center p-4 shadow-sm">
+						<div class="vol-icon mb-4">
+							<i class="fa-solid fa-box-open"></i>
+						</div>
+						<h4 class="fw-bold mb-3">Apoyo en víveres</h4>
+						<p class="text-muted">Puedes aportar alimentos, frazadas,
+							insumos de limpieza y medicamentos para el albergue.</p>
+						<a href="#" class="btn btn-warning fw-semibold mt-3">Donar
+							víveres</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- SECCIÓN CARACTERÍSTICAS -->
+	<section class="features-section py-5">
+		<div class="container">
+
+			<div class="row align-items-center">
+
+				<div class="col-lg-7">
+
+					<div class="row gy-5">
+
+						<div class="col-md-6 d-flex gap-3">
+							<div class="feature-icon">
+								<i class="fa-regular fa-star"></i>
+							</div>
+							<div>
+								<h5 class="fw-bold text-dark">Equipo Especializado</h5>
+								<p class="text-muted">Contamos con veterinarios, rescatistas
+									y cuidadores comprometidos con el bienestar animal.</p>
+							</div>
+						</div>
+
+						<div class="col-md-6 d-flex gap-3">
+							<div class="feature-icon">
+								<i class="fa-regular fa-heart"></i>
+							</div>
+							<div>
+								<h5 class="fw-bold text-dark">Asesoría Gratuita</h5>
+								<p class="text-muted">Te guiamos para que encuentres la
+									mascota ideal para tu hogar y estilo de vida.</p>
+							</div>
+						</div>
+
+						<div class="col-md-6 d-flex gap-3">
+							<div class="feature-icon">
+								<i class="fa-solid fa-shield-dog"></i>
+							</div>
+							<div>
+								<h5 class="fw-bold text-dark">Adopciones Seguras</h5>
+								<p class="text-muted">Realizamos evaluaciones responsables
+									para garantizar que cada mascota vaya a un hogar adecuado.</p>
+							</div>
+						</div>
+
+						<div class="col-md-6 d-flex gap-3">
+							<div class="feature-icon">
+								<i class="fa-solid fa-trophy"></i>
+							</div>
+							<div>
+								<h5 class="fw-bold text-dark">Proceso Profesional</h5>
+								<p class="text-muted">Brindamos acompañamiento antes,
+									durante y después de la adopción.</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-lg-5 text-center">
+					<img src="/img/Features-dog.png" alt="dog"
+						class="img-fluid feature-dog">
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- NEWSLETTER -->
+	<section class="newsletter-section py-5">
+		<div class="container">
+
+			<div class="row align-items-center gy-3">
+
+				<div class="col-lg-6">
+					<h2 class="fw-bold mb-2">Suscríbete a nuestro boletín</h2>
+					<p class="text-dark-50 mb-0">Recibe historias, novedades,
+						campañas de rescate y tips para el cuidado responsable.</p>
+				</div>
+
+				<div class="col-lg-6">
+					<form class="newsletter-form d-flex">
+						<input type="email" class="newsletter-input"
+							placeholder="Tu correo electrónico">
+						<button class="newsletter-btn">
+							<i class="fa-solid fa-paper-plane"></i>
+						</button>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<footer class="footer-section">
+
+		<div class="footer-background"></div>
+
+		<div class="container py-5">
+
+			<div class="row gy-4 footer-columns">
+
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-logo mb-3 d-flex align-items-center gap-2">
+						<img src="/img/RescatyLogoHover.png" alt="logo"
+							style="height: 60px;">
+					</div>
+
+					<p class="text-white-50">Rescaty trabaja por el bienestar de
+						los animales más vulnerables. Promovemos la adopción responsable y
+						brindamos apoyo a quienes más lo necesitan.</p>
+
+					<div class="d-flex gap-3 mt-3">
+						<a href="#" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="footer-social"><i
+							class="fa-brands fa-x-twitter"></i></a> <a href="#"
+							class="footer-social"><i class="fa-brands fa-instagram"></i></a>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<h5 class="text-white fw-bold mb-3">Enlaces</h5>
+					<ul class="list-unstyled footer-links">
+						<li><a href="#">Nosotros</a></li>
+						<li><a href="#">Mascotas en adopción</a></li>
+						<li><a href="#">Proceso de adopción</a></li>
+						<li><a href="#">Historias de rescate</a></li>
+						<li><a href="#">Contacto</a></li>
+					</ul>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<h5 class="text-white fw-bold mb-3">Contáctanos</h5>
+
+					<p class="text-white-50 mb-2">
+						<i class="fa-solid fa-location-dot text-warning me-2"></i> Av.
+						Primavera 257 – Lima, Perú
+					</p>
+
+					<p class="text-white-50 mb-2">
+						<i class="fa-solid fa-phone text-warning me-2"></i> +51 922 335
+						225
+					</p>
+
+					<p class="text-white-50 mb-2">
+						<i class="fa-solid fa-envelope text-warning me-2"></i>
+						contacto@rescaty.org
+					</p>
+
+					<p class="text-white-50 mb-2">
+						<i class="fa-solid fa-clock text-warning me-2"></i> Horario: 9:00
+						am – 6:00 pm
+					</p>
+				</div>
+
+			</div>
+
+			<hr class="footer-divider">
+
+			<p class="text-center text-white-50 mt-3 mb-0">© 2025 Rescaty.
+				Todos los derechos reservados.</p>
+
+		</div>
+	</footer>
+
+	<!-- MODAL LOGIN -->
+	<div class="modal fade" id="loginModal" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content modal-auth-white">
+
+				<div class="modal-header border-0 pb-0">
+					<h3 class="modal-title fw-bold w-100 text-center">Iniciar
+						Sesión</h3>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+
+					<!-- BOTONES SOCIALES -->
+					<div class="d-flex flex-column gap-3 mb-4">
+
+						<button class="btn btn-google w-100">
+							<img
+								src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
+								alt="Google" width="20" class="me-2"> Iniciar sesión con
+							Google
+						</button>
+
+						<button class="btn facebook-btn w-100">
+							<i class="fa-brands fa-facebook-f me-2"></i> Continuar con
+							Facebook
+						</button>
+					</div>
+
+					<div class="divider my-3">
+						<span>o ingresa tus datos</span>
+					</div>
+
+					<!-- FORM LOGIN -->
+					<form action="/login" method="post">
+
+						<div class="mb-3">
+							<label class="form-label">Correo electrónico</label>
+							<div class="input-icon-white">
+								<i class="fa-solid fa-envelope"></i> <input type="email" name="email"
+									class="form-control input-auth-white" placeholder="correo@ejemplo.com" required>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Contraseña</label>
+							<div class="input-icon-white">
+								<i class="fa-solid fa-lock"></i> <input type="password" name="password"
+									class="form-control input-auth-white" placeholder="••••••••" required>
+							</div>
+						</div>
+
+						<button type="submit"
+							class="btn btn-warning w-100 fw-semibold py-2 mt-2">
+							Ingresar</button>
+
+					</form>
+
+					<p class="text-center text-muted mt-3">
+						¿No tienes cuenta? <a href="#" class="text-warning fw-bold"
+							data-bs-toggle="modal" data-bs-target="#registerModal"
+							data-bs-dismiss="modal"> Crear cuenta </a>
+					</p>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL REGISTER -->
+	<div class="modal fade" id="registerModal" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content modal-auth-white">
+
+				<div class="modal-header border-0 pb-0">
+					<h3 class="modal-title fw-bold w-100 text-center">Crear Cuenta</h3>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+
+					<!-- BOTONES SOCIALES -->
+					<div class="d-flex flex-column gap-3 mb-4">
+
+						<button class="btn btn-google w-100">
+							<img
+								src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
+								alt="Google" width="20" class="me-2"> Registrarse con
+							Google
+						</button>
+
+						<button class="btn facebook-btn w-100">
+							<i class="fa-brands fa-facebook-f me-2"></i> Registrarse con
+							Facebook
+						</button>
+					</div>
+
+					<div class="divider my-3">
+						<span>o completa tus datos</span>
+					</div>
+
+					<!-- FORM REGISTRO -->
+					<form action="/register" method="post">
+
+						<!-- NOMBRE + APELLIDO EN UNA FILA -->
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Nombre</label>
+								<div class="input-icon-white">
+									<i class="fa-solid fa-user"></i> <input type="text" name="nombres"
+										class="form-control input-auth-white" placeholder="Tu nombre" required>
+								</div>
+							</div>
+
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Apellido</label>
+								<div class="input-icon-white">
+									<i class="fa-solid fa-user-tag"></i> <input type="text" name="apellido"
+										class="form-control input-auth-white" placeholder="Tu apellido" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Correo electrónico</label>
+							<div class="input-icon-white">
+								<i class="fa-solid fa-envelope"></i> <input type="email" name="email"
+									class="form-control input-auth-white" placeholder="correo@ejemplo.com" required>
+							</div>
+						</div>
+
+						<!-- DNI + TELÉFONO EN UNA FILA -->
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">DNI</label>
+								<div class="input-icon-white">
+									<i class="fa-solid fa-id-card"></i> <input type="text" name="dni"
+										class="form-control input-auth-white" placeholder="DNI" required>
+								</div>
+							</div>
+
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Teléfono</label>
+								<div class="input-icon-white">
+									<i class="fa-solid fa-phone"></i> <input type="text" name="telefono"
+										class="form-control input-auth-white" placeholder="Teléfono" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Contraseña</label>
+							<div class="input-icon-white">
+								<i class="fa-solid fa-lock"></i> <input type="password" name="password"
+									class="form-control input-auth-white" placeholder="Crea una contraseña" required>
+							</div>
+						</div>
+
+						<button type="submit"
+							class="btn btn-warning w-100 fw-semibold py-2 mt-2">
+							Crear cuenta</button>
+
+					</form>
+
+					<p class="text-center text-muted mt-3">
+						¿Ya tienes una cuenta? <a href="#" class="text-warning fw-bold"
+							data-bs-toggle="modal" data-bs-target="#loginModal"
+							data-bs-dismiss="modal"> Inicia sesión </a>
+					</p>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/js/main.js}"></script>
+
+</body>
+
+</html>

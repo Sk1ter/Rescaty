@@ -1,0 +1,95 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pe.edu.certus.rescatybackend.model.Mascota;
+import pe.edu.certus.rescatybackend.service.MascotaService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/mascotas")
+@CrossOrigin("*")
+@Tag(name = "Mascotas", description = "API para gestión de mascotas")
+public class MascotaController {
+
+    private final MascotaService service;
+
+    public MascotaController(MascotaService service) {
+        this.service = service;
+    }
+    
+    @Operation(summary = "Listar todas las mascotas")
+    
+    @GetMapping
+    public List<Mascota> listar() {
+        return service.listar();
+    }
+    
+    @Operation(
+            summary = "Obtener mascota por ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Mascota encontrada"),
+                    @ApiResponse(responseCode = "404", description = "Mascota no encontrada")
+            }
+    )
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtener(@PathVariable Long id) {
+        Mascota m = service.obtener(id);
+
+        if (m == null)
+            return ResponseEntity.status(404).body("Mascota no encontrada");
+
+        return ResponseEntity.ok(m);
+    }
+    
+    @Operation(
+            summary = "Registrar una nueva mascota",
+            description = "Crea una mascota con los datos enviados"
+    )
+
+    @PostMapping
+    public Mascota crear(@RequestBody Mascota mascota) {
+        return service.crear(mascota);
+    }
+    
+    @Operation(
+            summary = "Actualizar datos de una mascota",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Mascota actualizada"),
+                    @ApiResponse(responseCode = "404", description = "Mascota no encontrada")
+            }
+    )
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Mascota mascota) {
+
+        Mascota m = service.actualizar(id, mascota);
+
+        if (m == null)
+            return ResponseEntity.status(404).body("Mascota no encontrada");
+
+        return ResponseEntity.ok(m);
+    }
+    
+    @Operation(
+            summary = "Eliminar una mascota por ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Mascota eliminada"),
+                    @ApiResponse(responseCode = "404", description = "Mascota no encontrada")
+            }
+    )
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        if (!service.eliminar(id))
+            return ResponseEntity.status(404).body("Mascota no encontrada");
+
+        return ResponseEntity.ok("Mascota eliminada correctamente");
+    }
+}

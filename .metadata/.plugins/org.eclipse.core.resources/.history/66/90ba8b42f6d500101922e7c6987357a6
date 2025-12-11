@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Mascota – ' + ${mascota.nombre}">Mascota</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --rescaty: #f1b902;
+            --rescaty-dark: #d9a500;
+        }
+
+        body {
+            background: #f5f6fa;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 30px;
+        }
+
+        /* TARJETA PRINCIPAL */
+        .pet-detail-card {
+            background: #ffffff;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.10);
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeIn .4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FOTO */
+        .pet-header-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--rescaty);
+        }
+
+        /* CONTENIDO */
+        .pet-content {
+            padding: 35px;
+        }
+
+        h2.pet-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1f2937;
+        }
+
+        .pet-subtitle {
+            font-size: 15px;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        /* LISTA ELEGANTE */
+        .pet-info-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 25px;
+            margin-bottom: 30px;
+        }
+
+        .pet-info-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px dashed #d1d5db;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        .pet-info-list li i {
+            width: 38px;
+            height: 38px;
+            background: rgba(241,185,2,0.15);
+            color: var(--rescaty);
+            border-radius: 10px;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* BADGE */
+        .pet-status {
+            font-size: 15px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 10px;
+        }
+
+        .available {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        /* BOTONES */
+        .btn-rescaty {
+            background: var(--rescaty);
+            color: #1f2937;
+            font-weight: 700;
+            padding: 12px 26px;
+            border-radius: 12px;
+            border: none;
+            transition: .25s ease;
+        }
+
+        .btn-rescaty:hover {
+            background: var(--rescaty-dark);
+            color: #fff;
+        }
+
+        .btn-outline-rescaty {
+            border: 2px solid var(--rescaty);
+            color: #1f2937;
+            font-weight: 700;
+            padding: 12px 26px;
+            border-radius: 12px;
+            transition: .25s ease;
+        }
+
+        .btn-outline-rescaty:hover {
+            background: var(--rescaty);
+            color: #fff;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="pet-detail-card">
+
+        <!-- FOTO -->
+        <img th:src="@{/img/Adopta1.png}" class="pet-header-img" alt="Mascota">
+
+        <!-- CONTENIDO -->
+        <div class="pet-content">
+
+            <h2 class="pet-name" th:text="${mascota.nombre}">Nombre</h2>
+
+            <p class="pet-subtitle">
+                <span th:text="${mascota.especie}"></span> ·
+                <span th:text="${mascota.raza}"></span>
+            </p>
+
+            <!-- ESTADO -->
+            <span class="pet-status available" th:text="${mascota.estado}">Disponible</span>
+
+            <!-- INFORMACIÓN -->
+            <ul class="pet-info-list">
+
+                <li>
+                    <i class="fa-solid fa-venus-mars"></i>
+                    <strong>Sexo:</strong> <span th:text="${mascota.sexo}"></span>
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-cake-candles"></i>
+                    <strong>Edad:</strong> <span th:text="${mascota.edadMeses + ' meses'}"></span>
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <strong>Salud:</strong> <span th:text="${mascota.salud}"></span>
+                </li>
+
+            </ul>
+
+            <!-- BOTONES -->
+            <div class="d-flex justify-content-end gap-3">
+                
+                <a th:href="@{/usermascota}" class="btn btn-outline-rescaty">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+
+                <button class="btn btn-rescaty">
+                    <i class="fa-solid fa-hand-holding-heart"></i> Adoptar
+                </button>
+
+                <button class="btn btn-outline-rescaty">
+                    <i class="fa-solid fa-share-nodes"></i> Compartir
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

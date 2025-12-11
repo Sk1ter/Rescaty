@@ -1,0 +1,64 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import pe.edu.certus.rescatybackend.model.Evento;
+import pe.edu.certus.rescatybackend.service.EventoService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/eventos")
+@CrossOrigin("*")
+public class EventoController {
+
+    private final EventoService service;
+
+    public EventoController(EventoService service) {
+        this.service = service;
+    }
+
+    // CREAR EVENTO
+    @PostMapping
+    public ResponseEntity<?> crear(@RequestBody Evento evento) {
+        Evento e = service.crear(evento);
+        return ResponseEntity.ok(e);
+    }
+
+    // LISTAR EVENTOS
+    @GetMapping
+    public ResponseEntity<List<Evento>> listar() {
+        return ResponseEntity.ok(service.listarTodos());
+    }
+
+    // OBTENER EVENTOS
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtener(@PathVariable Long id) {
+        Evento e = service.obtenerPorId(id);
+        if (e == null)
+            return ResponseEntity.status(404).body("Evento no encontrado");
+        return ResponseEntity.ok(e);
+    }
+
+    // ACTUALIZAR EVENTOS
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Evento evento) {
+        Evento actualizado = service.actualizar(id, evento);
+        if (actualizado == null)
+            return ResponseEntity.status(404).body("Evento no encontrado");
+
+        return ResponseEntity.ok(actualizado);
+    }
+
+    // ELIMINAR EVENTOS
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        Evento e = service.obtenerPorId(id);
+        if (e == null)
+            return ResponseEntity.status(404).body("Evento no encontrado");
+
+        service.eliminar(id);
+        return ResponseEntity.ok("Evento eliminado correctamente");
+    }
+}

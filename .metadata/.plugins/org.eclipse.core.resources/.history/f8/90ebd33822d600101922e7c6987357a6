@@ -1,0 +1,30 @@
+package pe.edu.certus.rescatybackend.dto;
+
+import java.time.LocalDateTime;
+
+public class SolicitudAdopcionResponse {
+
+    public Long id;
+    public Long mascotaId;
+    public String nombreMascota;
+
+    public Long usuarioId;
+    public String nombreUsuario;
+
+    public String nombreCompleto;
+    public String email;
+    public String telefono;
+
+    public String motivo;
+    public String experiencia;
+    public String entornoHogar;
+    public String tiempoDisponible;
+    public String otrasMascotas;
+
+    public Boolean aceptaCondiciones;
+    public String estado;
+    public LocalDateTime fechaSolicitud;
+
+    public SolicitudAdopcionResponse() {
+    }
+}

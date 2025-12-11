@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="'Mascota – ' + ${mascota.nombre}">Rescaty -</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/detalle-mascota.css}">
+
+
+</head>
+
+<body>
+
+	<header class="header-main shadow-sm">
+		<nav
+			class="container d-flex align-items-center justify-content-between py-2">
+
+			<a th:href="@{/home}"
+				class="navbar-brand d-flex align-items-center gap-2 m-0"> <img
+				src="/img/RescatyLogo.png" alt="Logo" height="55" class="logo-home">
+			</a>
+
+			<div class="d-flex align-items-center gap-3">
+
+				<button class="btn btn-icon position-relative notif-btn"
+					data-bs-toggle="offcanvas" data-bs-target="#notifCanvas">
+					<i class="fa-solid fa-bell"></i> <span class="notif-indicator"></span>
+				</button>
+
+				<div class="dropdown">
+					<button class="btn user-btn d-flex align-items-center gap-2"
+						data-bs-toggle="dropdown">
+						<img src="/img/AvatarUser.png" class="user-avatar rounded-circle"
+							alt="Usuario"> <span
+							class="fw-semibold user-name text-dark"
+							th:text="${usuario != null ? usuario.nombreCompleto : 'Invitado'}">
+						</span> <i class="fa-solid fa-chevron-down small text-secondary"></i>
+					</button>
+
+					<ul
+						class="dropdown-menu dropdown-menu-end shadow-sm border-0 user-dropdown">
+						<li><a class="dropdown-item" th:href="@{/profile}"> <i
+								class="fa-solid fa-user"></i> Perfil
+						</a></li>
+
+						<li><a class="dropdown-item" th:href="@{/configuration}">
+								<i class="fa-solid fa-gear"></i> Configuración
+						</a></li>
+
+						<li><a class="dropdown-item" th:href="@{/support}"> <i
+								class="fa-solid fa-circle-info"></i> Soporte
+						</a></li>
+
+						<li><a class="dropdown-item" th:href="@{/dashboard}"> <i
+								class="fa-solid fa-gauge"></i> Dashboard
+						</a></li>
+
+						<li><hr class="dropdown-divider"></li>
+
+						<li>
+							<form th:action="@{/logout}" method="post">
+								<button type="submit" class="dropdown-item logout-item">
+									<i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+								</button>
+							</form>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+	</header>
+
+	<section class="py-4 cause-section">
+		<div class="container">
+
+			<div
+				class="d-flex flex-wrap gap-3 justify-content-center cause-wrapper">
+
+				<a th:href="@{/home}" class="cause-pill btn btn-primary shadow-sm">
+					<i class="fa-solid fa-house"></i> <span>Actividades</span>
+				</a> <a th:href="@{/usermascotas}" class="cause-pill shadow-sm active">
+					<i class="fa-solid fa-dog"></i> <span>Mascotas</span>
+				</a> <a href="#" class="cause-pill shadow-sm"> <i
+					class="fa-solid fa-ellipsis"></i> <span>Otros</span>
+				</a>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="pet-product-section">
+		<div class="container">
+			<div class="pet-product-layout">
+
+				<!-- Imagen izquierda -->
+				<div class="pet-product-image">
+					<img th:src="@{/img/Adopta1.png}" alt="Mascota">
+				</div>
+
+				<!-- Información derecha -->
+				<div class="pet-product-info">
+
+					<h2 class="pet-title" th:text="${mascota.nombre}">Nombre</h2>
+
+					<p class="pet-subtitle">
+						<span th:text="${mascota.especie}"></span> · <span
+							th:text="${mascota.raza}"></span>
+					</p>
+
+					<span class="pet-status" th:text="${mascota.estado}">Disponible</span>
+
+					<!-- Historia / descripción -->
+					<p class="pet-description">Esta mascota está buscando un hogar
+						lleno de cariño. En Rescaty trabajamos para darles una segunda
+						oportunidad a quienes más lo necesitan. Al adoptarla, no solo le
+						das un hogar, sino también una nueva vida llena de amor.</p>
+
+					<!-- Detalles -->
+					<ul class="pet-details">
+						<li><i class="fa-solid fa-venus-mars"></i> Sexo: <strong
+							th:text="${mascota.sexo}"></strong></li>
+
+						<li><i class="fa-solid fa-cake-candles"></i> Edad: <strong
+							th:text="${mascota.edadMeses + ' meses'}"></strong></li>
+
+						<li><i class="fa-solid fa-heart-pulse"></i> Salud: <strong
+							th:text="${mascota.salud}"></strong></li>
+					</ul>
+
+					<!-- Botones -->
+					<div class="pet-actions">
+						<a th:href="@{/usermascotas}" class="btn-back"> <i
+							class="fa-solid fa-arrow-left"></i> Volver
+						</a>
+
+						<button class="btn btn-rescaty" data-bs-toggle="modal"
+							data-bs-target="#modalAdopcion">
+							<i class="fa-solid fa-hand-holding-heart"></i> Adoptar
+						</button>
+
+
+						<button class="btn-share">
+							<i class="fa-solid fa-share-nodes"></i> Compartir
+						</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="notifCanvas">
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title fw-bold">Notificaciones</h5>
+			<button class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+		</div>
+
+		<div class="offcanvas-body">
+			<p class="text-muted">No tienes notificaciones nuevas.</p>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

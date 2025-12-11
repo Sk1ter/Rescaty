@@ -1,0 +1,57 @@
+package pe.edu.certus.rescatyfrontend.controller;
+
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pe.edu.certus.rescatyfrontend.cliente.EventoApiCliente;
+import pe.edu.certus.rescatyfrontend.dto.UsuarioSesion;
+import pe.edu.certus.rescatyfrontend.modelo.Evento;
+
+@Controller
+@RequestMapping("/eventos")
+public class EventoController {
+
+    private final EventoApiCliente api;
+
+    public EventoController(EventoApiCliente api) {
+        this.api = api;
+    }
+
+    @PostMapping("/crear")
+    public String crearEvento(Evento evento) {
+        api.crearEvento(evento);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarEditar(@PathVariable Long id,
+                                HttpSession session,
+                                RedirectAttributes redirect) {
+
+        UsuarioSesion user = (UsuarioSesion) session.getAttribute("usuarioSesion");
+        if (user == null) {
+            return "redirect:/";
+        }
+
+        Evento evento = api.obtenerEvento(id);
+
+        redirect.addFlashAttribute("eventoEdit", evento);
+        redirect.addFlashAttribute("abrirModalEditar", true);
+
+        return "redirect:/dashboard";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String editarEvento(@PathVariable Long id, Evento evento) {
+        api.actualizarEvento(id, evento);
+        return "redirect:/dashboard";
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarEvento(@PathVariable Long id) {
+        api.eliminarEvento(id);
+        return "redirect:/dashboard";
+    }
+}

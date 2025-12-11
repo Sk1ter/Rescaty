@@ -1,0 +1,5 @@
+package pe.edu.certus.rescatybackend.dto;
+
+public class SolicitudAdopcionResponse {
+
+}

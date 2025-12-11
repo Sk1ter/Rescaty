@@ -1,0 +1,5 @@
+package pe.edu.certus.rescatyfrontend.modelo;
+
+public class Mascota {
+
+}

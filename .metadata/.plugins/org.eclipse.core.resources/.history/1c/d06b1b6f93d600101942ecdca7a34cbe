@@ -1,0 +1,62 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import pe.edu.certus.rescatybackend.dto.SolicitudAdopcionRequest;
+import pe.edu.certus.rescatybackend.model.SolicitudAdopcion;
+import pe.edu.certus.rescatybackend.service.SolicitudAdopcionService;
+
+@RestController
+@RequestMapping("/api/solicitudes")
+@CrossOrigin("*")
+public class SolicitudAdopcionController {
+
+    private final SolicitudAdopcionService service;
+
+    public SolicitudAdopcionController(SolicitudAdopcionService service) {
+        this.service = service;
+    }
+
+    @PostMapping("/registrar")
+    public ResponseEntity<?> registrar(@RequestBody SolicitudAdopcionRequest req) {
+        return ResponseEntity.ok(service.registrar(req));
+    }
+
+    @GetMapping
+    public List<SolicitudAdopcion> listar() {
+        return service.listar();
+    }
+
+    @GetMapping("/{id}")
+    public SolicitudAdopcion obtener(@PathVariable Long id) {
+        return service.obtener(id);
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public List<SolicitudAdopcion> listarPorUsuario(@PathVariable Long usuarioId) {
+        return service.listarPorUsuario(usuarioId);
+    }
+    
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<?> actualizarEstado(
+            @PathVariable Long id,
+            @RequestBody String estado
+    ) {
+
+        SolicitudAdopcion s = service.actualizarEstado(id, estado);
+
+        if (s == null) {
+            return ResponseEntity.status(404).body("Solicitud no encontrada");
+        }
+
+        return ResponseEntity.ok(s);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
+    }
+}

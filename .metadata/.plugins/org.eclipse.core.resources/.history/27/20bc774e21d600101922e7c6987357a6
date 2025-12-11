@@ -1,0 +1,94 @@
+package pe.edu.certus.rescatybackend.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "solicitud_adopcion")
+public class SolicitudAdopcion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long mascotaId;
+
+    private Long usuarioId;
+
+    private String telefono;
+
+    @Column(length = 500)
+    private String descripcion;
+
+    private String estado = "PENDIENTE";
+
+    private LocalDateTime fecha = LocalDateTime.now();
+
+    public SolicitudAdopcion() {}
+
+    public SolicitudAdopcion(Long mascotaId, Long usuarioId, String telefono, String descripcion) {
+        this.mascotaId = mascotaId;
+        this.usuarioId = usuarioId;
+        this.telefono = telefono;
+        this.descripcion = descripcion;
+        this.estado = "PENDIENTE";
+        this.fecha = LocalDateTime.now();
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getMascotaId() {
+		return mascotaId;
+	}
+
+	public void setMascotaId(Long mascotaId) {
+		this.mascotaId = mascotaId;
+	}
+
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public LocalDateTime getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDateTime fecha) {
+		this.fecha = fecha;
+	}
+
+}

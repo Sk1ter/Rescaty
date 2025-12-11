@@ -1,0 +1,5 @@
+package pe.edu.certus.rescatyfrontend.cliente;
+
+public class SolicitudAdopcionApiCliente {
+
+}

@@ -1,0 +1,39 @@
+package pe.edu.certus.rescatyfrontend.controller;
+
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import pe.edu.certus.rescatyfrontend.cliente.EventoApiCliente;
+import pe.edu.certus.rescatyfrontend.dto.UsuarioSesion;
+
+@Controller
+public class HomeController {
+
+    private final EventoApiCliente eventoApi;
+
+    public HomeController(EventoApiCliente eventoApi) {
+        this.eventoApi = eventoApi;
+    }
+
+    @GetMapping("/home")
+    public String home(HttpSession session, Model model) {
+
+        UsuarioSesion usuario = (UsuarioSesion) session.getAttribute("usuarioSesion");
+
+        if (usuario == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("usuario", usuario);
+
+        model.addAttribute("events", eventoApi.listarEventos());
+        
+        model.addAttribute("eventoVerMas", eventoApi.obtenerEvento(id));
+
+        model.addAttribute("abrirModalVerMas", true);
+
+        return "home";
+    }
+}

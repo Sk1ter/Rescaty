@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rescaty – Panel Administrativo</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+
+<body>
+
+	<div class="dashboard-container">
+
+		<!-- SIDEBAR -->
+		<aside class="sidebar shadow">
+
+			<div class="sidebar-header text-center">
+				<img src="/img/AvatarUser.png" class="user-avatar" alt="avatar">
+
+				<div class="user-info">
+					<h5 class="user-name"
+						th:text="${user != null ? user.nombres + ' ' + user.apellido : 'Usuario'}">Usuario</h5>
+
+					<p class="user-email"
+						th:text="${user != null ? user.email : 'correo@ejemplo.com'}">correo@ejemplo.com</p>
+				</div>
+			</div>
+
+			<!-- MENU -->
+			<nav class="sidebar-nav">
+				<p class="nav-title">Menú</p>
+
+				<a href="#" class="nav-item active"
+					onclick="showSection('section-actividades', this)"> <i
+					class="fa-solid fa-calendar-check nav-icon"></i>Actividades
+				</a> <a href="#" class="nav-item"
+					onclick="showSection('section-mascotas', this)"> <i
+					class="fa-solid fa-dog nav-icon"></i>Mascotas
+				</a> <a href="#" class="nav-item"
+					onclick="showSection('section-adopciones', this)"> <i
+					class="fa-solid fa-heart nav-icon"></i>Adopciones
+				</a> <a href="#" class="nav-item"
+					onclick="showSection('section-usuarios', this)"> <i
+					class="fa-solid fa-users nav-icon"></i>Usuarios
+				</a>
+			</nav>
+
+			<div class="sidebar-footer">
+				<a href="#" class="nav-item"><i
+					class="fa-solid fa-gear nav-icon"></i>Configuración</a> <a href="#"
+					class="nav-item logout"><i
+					class="fa-solid fa-right-from-bracket nav-icon"></i>Cerrar sesión</a>
+			</div>
+		</aside>
+
+
+		<!-- CONTENIDO -->
+		<main class="content shadow">
+
+			<!-- ====================== SECCIÓN ACTIVIDADES ====================== -->
+			<section id="section-actividades" class="app-section">
+
+				<div
+					class="content-header d-flex justify-content-between align-items-center mb-4">
+					<h2 class="fw-bold">Actividades</h2>
+
+					<button class="btn btn-rescaty" data-bs-toggle="modal"
+						data-bs-target="#modalAddEvent">
+						<i class="fa-solid fa-circle-plus me-2"></i>Añadir Evento
+					</button>
+				</div>
+
+				<div class="row g-4" th:if="${events != null}">
+					<div class="col-12 col-sm-6 col-lg-3" th:each="event : ${events}">
+
+						<div class="card event-card">
+							<img src="/img/event-default.jpg" alt="Evento">
+
+							<div class="card-body">
+								<h6 th:text="${event.titulo}"></h6>
+								<a href="#" th:text="${event.organizador}"></a>
+
+								<ul class="event-info">
+									<li><i class="fa-solid fa-calendar"></i> <span
+										th:text="${event.fecha}"></span></li>
+									<li><i class="fa-solid fa-clock"></i> <span
+										th:text="${event.hora}"></span></li>
+									<li><i class="fa-solid fa-location-dot"></i> <span
+										th:text="${event.ubicacion}"></span></li>
+								</ul>
+
+								<p class="event-participantes">
+									<i class="fa-solid fa-users"></i> Cupos: <span
+										th:text="${event.participantes}"></span>
+								</p>
+
+								<div class="card-actions d-flex justify-content-end gap-2">
+
+									<!-- EDITAR -->
+									<a th:href="@{'/eventos/editar/' + ${event.id}}"
+										class="btn-icon btn-edit" title="Editar"> <i
+										class="fa-solid fa-pen"></i>
+									</a>
+
+									<!-- ELIMINAR -->
+									<form th:action="@{'/eventos/eliminar/' + ${event.id}}"
+										method="post" style="display: inline-block;">
+										<button type="submit" class="btn-icon btn-delete"
+											title="Eliminar">
+											<i class="fa-solid fa-trash"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+
+			<!-- ====================== SECCIÓN MASCOTAS ====================== -->
+			<section id="section-mascotas" class="app-section"
+				style="display: none;">
+				<h2 class="fw-bold mb-3">Mascotas</h2>
+				<p>Aquí podrás gestionar las mascotas (contenido pendiente).</p>
+			</section>
+
+
+			<!-- ====================== SECCIÓN ADOPCIONES ====================== -->
+			<section id="section-adopciones" class="app-section"
+				style="display: none;">
+				<h2 class="fw-bold mb-3">Adopciones</h2>
+				<p>Aquí se mostrarán solicitudes y procesos de adopción.</p>
+			</section>
+
+
+			<!-- ====================== SECCIÓN USUARIOS ====================== -->
+			<section id="section-usuarios" class="app-section"
+				style="display: none;">
+				<h2 class="fw-bold mb-3">Usuarios</h2>
+				<p>Listado y gestión de usuarios próximamente.</p>
+			</section>
+
+		</main>
+	</div>
+
+
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- AUTO-ABRIR MODAL EDITAR -->
+	<th:block th:if="${abrirModalEditar}">
+		<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modalEditar = new bootstrap.Modal(document.getElementById('modalEditarEvento'));
+            modalEditar.show();
+        });
+    </script>
+	</th:block>
+
+
+	<script>
+		function showSection(sectionId, linkElement) {
+
+    		document.querySelectorAll(".app-section").forEach(s => s.style.display = "none");
+
+    		document.getElementById(sectionId).style.display = "block";
+
+    		document.querySelectorAll(".sidebar-nav .nav-item").forEach(a => a.classList.remove("active"));
+
+    		linkElement.classList.add("active");
+		}
+	</script>
+
+</body>
+</html>

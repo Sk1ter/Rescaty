@@ -1,0 +1,112 @@
+package pe.edu.certus.rescatybackend.service;
+
+import org.springframework.stereotype.Service;
+import pe.edu.certus.rescatybackend.dto.SolicitudAdopcionRequest;
+import pe.edu.certus.rescatybackend.dto.SolicitudAdopcionResponse;
+import pe.edu.certus.rescatybackend.model.Mascota;
+import pe.edu.certus.rescatybackend.model.SolicitudAdopcion;
+import pe.edu.certus.rescatybackend.model.Usuario;
+import pe.edu.certus.rescatybackend.repository.MascotaRepository;
+import pe.edu.certus.rescatybackend.repository.SolicitudAdopcionRepository;
+import pe.edu.certus.rescatybackend.repository.UsuarioRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class SolicitudAdopcionService {
+
+    private final SolicitudAdopcionRepository repo;
+    private final MascotaRepository mascotaRepo;
+    private final UsuarioRepository usuarioRepo;
+
+    public SolicitudAdopcionService(SolicitudAdopcionRepository repo,
+                                    MascotaRepository mascotaRepo,
+                                    UsuarioRepository usuarioRepo) {
+        this.repo = repo;
+        this.mascotaRepo = mascotaRepo;
+        this.usuarioRepo = usuarioRepo;
+    }
+
+    public SolicitudAdopcionResponse crear(SolicitudAdopcionRequest req) {
+
+        Mascota mascota = mascotaRepo.findById(req.mascotaId).orElse(null);
+        Usuario usuario = usuarioRepo.findById(req.usuarioId).orElse(null);
+
+        if (mascota == null || usuario == null) {
+            return null;
+        }
+
+        SolicitudAdopcion s = new SolicitudAdopcion();
+        s.setMascota(mascota);
+        s.setUsuario(usuario);
+
+        s.setNombreCompleto(req.nombreCompleto);
+        s.setEmail(req.email);
+        s.setTelefono(req.telefono);
+        s.setDireccion(req.direccion);
+        s.setCiudad(req.ciudad);
+
+        s.setMotivo(req.motivo);
+        s.setExperiencia(req.experiencia);
+        s.setEntornoHogar(req.entornoHogar);
+        s.setTiempoDisponible(req.tiempoDisponible);
+        s.setOtrasMascotas(req.otrasMascotas);
+        s.setAceptaCondiciones(req.aceptaCondiciones);
+        s.setEstado("PENDIENTE");
+
+        s = repo.save(s);
+
+        return toResponse(s);
+    }
+
+    public List<SolicitudAdopcionResponse> listarTodas() {
+        return repo.findAll()
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    public SolicitudAdopcionResponse obtenerPorId(Long id) {
+        return repo.findById(id)
+                .map(this::toResponse)
+                .orElse(null);
+    }
+
+    public SolicitudAdopcionResponse actualizarEstado(Long id, String nuevoEstado) {
+        SolicitudAdopcion s = repo.findById(id).orElse(null);
+        if (s == null) return null;
+
+        s.setEstado(nuevoEstado);
+        s = repo.save(s);
+
+        return toResponse(s);
+    }
+
+    private SolicitudAdopcionResponse toResponse(SolicitudAdopcion s) {
+        SolicitudAdopcionResponse dto = new SolicitudAdopcionResponse();
+
+        dto.id = s.getId();
+        dto.mascotaId = s.getMascota() != null ? s.getMascota().getId() : null;
+        dto.nombreMascota = s.getMascota() != null ? s.getMascota().getNombre() : null;
+
+        dto.usuarioId = s.getUsuario() != null ? s.getUsuario().getId() : null;
+        dto.nombreUsuario = s.getUsuario() != null ? s.getUsuario().getNombres() + " " + s.getUsuario().getApellido() : null;
+
+        dto.nombreCompleto = s.getNombreCompleto();
+        dto.email = s.getEmail();
+        dto.telefono = s.getTelefono();
+
+        dto.motivo = s.getMotivo();
+        dto.experiencia = s.getExperiencia();
+        dto.entornoHogar = s.getEntornoHogar();
+        dto.tiempoDisponible = s.getTiempoDisponible();
+        dto.otrasMascotas = s.getOtrasMascotas();
+
+        dto.aceptaCondiciones = s.getAceptaCondiciones();
+        dto.estado = s.getEstado();
+        dto.fechaSolicitud = s.getFechaSolicitud();
+
+        return dto;
+    }
+}

@@ -1,0 +1,59 @@
+package pe.edu.certus.rescatybackend.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pe.edu.certus.rescatybackend.model.Mascota;
+import pe.edu.certus.rescatybackend.service.MascotaService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/mascotas")
+@CrossOrigin("*")
+public class MascotaController {
+
+    private final MascotaService service;
+
+    public MascotaController(MascotaService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Mascota> listar() {
+        return service.listar();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtener(@PathVariable Long id) {
+        Mascota m = service.obtener(id);
+
+        if (m == null)
+            return ResponseEntity.status(404).body("Mascota no encontrada");
+
+        return ResponseEntity.ok(m);
+    }
+
+    @PostMapping
+    public Mascota crear(@RequestBody Mascota mascota) {
+        return service.crear(mascota);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody Mascota mascota) {
+
+        Mascota m = service.actualizar(id, mascota);
+
+        if (m == null)
+            return ResponseEntity.status(404).body("Mascota no encontrada");
+
+        return ResponseEntity.ok(m);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        if (!service.eliminar(id))
+            return ResponseEntity.status(404).body("Mascota no encontrada");
+
+        return ResponseEntity.ok("Mascota eliminada correctamente");
+    }
+}

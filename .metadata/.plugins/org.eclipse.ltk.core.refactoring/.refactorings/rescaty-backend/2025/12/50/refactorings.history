@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;rescaty-backend/src/main/java/pe/edu/certus/rescatybackend/config/OpenApiConfig&apos; to &apos;OpenApiConfig.java&apos;" description="Rename resource &apos;OpenApiConfig&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/pe/edu/certus/rescatybackend/config/OpenApiConfig" name="OpenApiConfig.java" stamp="1765481260234" updateReferences="true"/>
+</session>

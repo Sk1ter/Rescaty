@@ -1,0 +1,58 @@
+package pe.edu.certus.rescatyfrontend.controller;
+
+import jakarta.servlet.http.HttpSession;
+import pe.edu.certus.rescatyfrontend.cliente.MascotaApiCliente;
+import pe.edu.certus.rescatyfrontend.dto.UsuarioSesion;
+import pe.edu.certus.rescatyfrontend.modelo.Mascota;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
+@Controller
+public class UserMascotaController {
+
+    private final MascotaApiCliente mascotaApi;
+
+    public UserMascotaController(MascotaApiCliente mascotaApi) {
+        this.mascotaApi = mascotaApi;
+    }
+
+    @GetMapping("/usermascotas")
+    public String mostrarMascotasUsuario(HttpSession session, Model model) {
+
+        UsuarioSesion usuario = (UsuarioSesion) session.getAttribute("usuarioSesion");
+
+        if (usuario == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("usuario", usuario);
+
+        model.addAttribute("mascotas", mascotaApi.listarMascotas());
+
+        return "usermascota";
+    }
+    
+    @GetMapping("/mascota/{id}")
+    public String verMascotaDetalle(@PathVariable Long id,
+                                    HttpSession session,
+                                    Model model) {
+
+        UsuarioSesion user = (UsuarioSesion) session.getAttribute("usuarioSesion");
+        if (user == null) return "redirect:/";
+
+        Mascota mascota = mascotaApi.obtenerMascota(id);
+
+        if (mascota == null) {
+            model.addAttribute("mensaje", "Mascota no encontrada");
+            return "usermascota";
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("mascota", mascota);
+        return "detalle-mascota";
+    }
+}

@@ -39,6 +39,9 @@ Este proyecto sirve principalmente para aprender.
 👨‍💻 ¿Qué aprendimos con este proyecto?
 
 Cómo estructurar un proyecto con frontend y backend
+
 Cómo conectar frontend con una API REST
+
 Cómo modelar entidades para una aplicación real
+
 Flujo completo de una aplicación de adopciones

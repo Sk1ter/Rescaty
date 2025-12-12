@@ -1,0 +1,33 @@
+Login
+
+POST http://localhost:9000/api/auth/register
+POST http://localhost:9000/api/auth/login (Genera token para el usuario)
+GET http://localhost:8080/api/auth/me (Necesita el token generado en Login)
+
+Mascotas
+
+Registrar - POST http://localhost:9000/api/mascotas
+Listar - GET http://localhost:9000/api/mascotas
+Obtener - GET http://localhost:9000/api/mascotas/1
+Actualizar - PUT http://localhost:9000/api/mascotas/1
+Eliminar - DELETE http://localhost:9000/api/mascotas/1
+
+Eventos
+
+Registrar - POST http://localhost:9000/api/eventos
+Listar - GET http://localhost:9000/api/eventos
+Obtener - GET http://localhost:9000/api/eventos/1
+Actualizar - PUT http://localhost:9000/api/eventos/1
+Eliminar - DELETE http://localhost:9000/api/eventos/1
+
+Solicitud Adopción
+
+Registrar - POST http://localhost:9000/api/adopciones (Solo funciona agregando el token que genera el Login)
+Listar - GET http://localhost:9000/api/adopciones
+Obtener - GET http://localhost:9000/api/adopciones/1
+Obtener por cada usuario - http://localhost:9000/api/adopciones/usuario/4
+Actualizar - PUT http://localhost:9000/api/adopciones/5/estado
+Eliminar - DELETE http://localhost:9000/api/adopciones/2
+
+
+
